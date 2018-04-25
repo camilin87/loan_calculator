@@ -15,76 +15,102 @@
     margin-right: 150px;
     margin-left: 80px;
     background-color: lightblue;
-		}
+    }
 
-		h1 {
-			text-align: center;
-		}
+    h1 {
+      text-align: center;
+    }
 
-		</style>
+    </style>
   </head>
 
-
-
   <body>
+    <?php
+      $start_date = 0;
+      $loan_amount = 0;
+      $installment_amount = 0;
+      $interest_rate = 0;
+      $installment_interval = 0;
+      $estimate_payoff = 0;
 
-  <h1>Loan repayment calculator in PHP</h1>
 
-  <div class="form-group">
-	  <label for="start_date">Start Date:</label>
-	  <input type="date" class="form-control" id="start_date">
-	</div>
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $start_date = test_input($_POST["start_date"]);
+        $loan_amount = test_input($_POST["loan_amount"]);
+        $installment_amount = test_input($_POST["installment_amount"]);
+        $interest_rate = test_input($_POST["interest_rate"]);
+        $installment_interval = test_input($_POST["installment_interval"]);
+      }
 
-	<div class="form-group">
-		  <label for="loan_amount">Loan Amount:</label>
-		  <input type="text" class="form-control" id="loan_amount" placeholder="$">
-	</div>
+      function test_input($data) {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
+      }
 
-	<div class="form-group">
-		  <label for="installment_amount">Installment Amount:</label>
-		  <input type="text" class="form-control" id="installment_amount" placeholder="$">
-	</div>
+    ?>
 
-	<div class="form-group">
-		  <label for="interest_rate">Interest Rate:</label>
-		  <input type="text" class="form-control" id="interest_rate" placeholder="%">
-	</div>
+    <h1>Loan repayment calculator in PHP</h1>
 
-	<div class="form-group">
-		<label for="installment_interval">Installment Interval:</label>
-		<div class="btn-group" data-toggle="buttons">
-		  <label class="btn">
-		    <input type="radio" name="options" id="daily" autocomplete="off"> Daily
-		  </label>
-		  <label class="btn">
-		    <input type="radio" name="options" id="weekly" autocomplete="off"> Weekly
-		  </label>
-		  <label class="btn">
-		    <input type="radio" name="options" id="monthly" autocomplete="off"> Monthly
-		  </label>
-		</div>
-	</div>
+    <form method = "post" action = "/calculator.php">
 
-	<br> 
-	
-	<button type="button" class="btn btn-primary">Calculate</button>
+      <div class="form-group">
+        <label for="start_date">Start Date:</label>
+        <input type="date" class="form-control" id="start_date" name="start_date"  value="<?php echo isset($_POST["start_date"]) ? $_POST["start_date"] : ''; ?>">
+      </div>
 
-	<div class="result">
+      <div class="form-group">
+          <label for="loan_amount">Loan Amount:</label>
+          <input type="text" class="form-control" id="loan_amount" name="loan_amount" placeholder="$" value="<?php echo isset($_POST["loan_amount"]) ? $_POST["loan_amount"] : ''; ?>">
+      </div>
 
-	</div>
+      <div class="form-group">
+          <label for="installment_amount">Installment Amount:</label>
+          <input type="text" class="form-control" id="installment_amount" name="installment_amount" placeholder="$" value="<?php echo isset($_POST["installment_amount"]) ? $_POST["installment_amount"] : ''; ?>">
+      </div>
 
-	<?php
-		$start_date = 0;
-		$loan_amount = 0;
-		$installment_amount = 0;
-		$interest_rate = 0;
-		$installment_interval = 0;
+      <div class="form-group">
+          <label for="interest_rate">Interest Rate:</label>
+          <input type="text" class="form-control" id="interest_rate" name="interest_rate" placeholder="%" value="<?php echo isset($_POST["interest_rate"]) ? $_POST["interest_rate"] : ''; ?>">
+      </div>
 
-		$estimate_payoff = 0;
+      <div class="form-group">
+        <label for="installment_interval">Installment Interval:</label>
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn">
+            <input type="radio" name="installment_interval" id="daily" value="365"> Daily
+          </label>
+          <label class="btn">
+            <input type="radio" name="installment_interval" id="weekly" value="52"> Weekly
+          </label>
+          <label class="btn">
+            <input type="radio" name="installment_interval" id="monthly" value="12"> Monthly
+          </label>
+        </div>
+      </div>
 
-    echo $start_date;
+      <br> 
+      
+      <input type="submit" value="Calculate" class="btn btn-primary">
 
-    echo "alex";
-	?>  
+    </form>
+
+    <div class="result">
+
+    </div>
+
+    <?php
+      
+      echo $start_date;
+      echo $loan_amount;
+      echo $installment_amount;
+      echo $interest_rate;
+      echo $installment_interval;
+
+
+
+      echo "alex";
+    ?>  
   </body>
 </html>
