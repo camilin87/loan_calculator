@@ -54,20 +54,21 @@
 
 
       // code is from: https://github.com/markrogoyski/math-php/blob/master/src/Finance.php
-     // * Examples:
-     // * The number of periods of a $475000 mortgage with interest rate 3.5% and monthly
-     // * payment of $2132.96  paid in full:
-     // *   nper(0.035/12, -2132.96, 475000, 0)
+      // * Examples:
+      // * The number of periods of a $475000 mortgage with interest rate 3.5% and monthly
+      // * payment of $2132.96  paid in full:
+      // *   nper(0.035/12, -2132.96, 475000, 0)
 
-     // * @param  float $rate
-     // * @param  float $payment
-     // * @param  float $present_value
-     // * @param  float $future_value
-     // * @param  bool  $beginning adjust the payment to the beginning or end of the period
-     // *
-     // * @return float
-
+      // * @param  float $rate
+      // * @param  float $payment
+      // * @param  float $present_value
+      // * @param  float $future_value
+      // * @param  bool  $beginning adjust the payment to the beginning or end of the period
+      // *
+      // * @return float
       function periods(float $rate, float $payment, float $present_value, float $future_value, bool $beginning = false): float {
+        echo "My function ".$rate.", ".$payment.", ".$present_value.", ".$future_value;   
+
         $when = $beginning ? 1 : 0;
         if ($rate == 0) {
             return - ($present_value + $future_value) / $payment;
@@ -76,7 +77,7 @@
         return log(($initial - $future_value*$rate) / ($initial + $present_value*$rate)) / log(1.0 + $rate);
       }
 
-      periods(($interest_rate/$installment_interval), $installment_amount, $loan_amount, 0);
+      $number_of_periods = periods(($interest_rate/$installment_interval), $installment_amount, $loan_amount, 0);
 
      
 
@@ -155,7 +156,7 @@
       echo "Installment interval: " . $installment_interval;
       echo "<br>";
 
-      echo "Output of periods function: " . periods(($interest_rate/$installment_interval), $installment_amount, $loan_amount, 0);
+      echo "Output of periods function: " . $number_of_periods;
     ?>  
   </body>
 </html>
