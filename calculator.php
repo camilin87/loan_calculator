@@ -49,8 +49,10 @@
         return $data;
       }
 
-      $interest_rate = $interest_rate/100;
-      $installment_amount = -($installment_amount);
+      $interest_rate_adjusted = $interest_rate/100;
+      $installment_amount_neg = -($installment_amount);
+
+      $interest_rate_period = $interest_rate_adjusted/$installment_interval;
 
 
       // code is from: https://github.com/markrogoyski/math-php/blob/master/src/Finance.php
@@ -67,7 +69,7 @@
       // *
       // * @return float
       function periods(float $rate, float $payment, float $present_value, float $future_value, bool $beginning = false): float {
-        echo "My function ".$rate.", ".$payment.", ".$present_value.", ".$future_value;   
+        //echo "DEBUG ".$rate.", ".$payment.", ".$present_value.", ".$future_value;   
 
         $when = $beginning ? 1 : 0;
         if ($rate == 0) {
@@ -77,7 +79,7 @@
         return log(($initial - $future_value*$rate) / ($initial + $present_value*$rate)) / log(1.0 + $rate);
       }
 
-      $number_of_periods = periods(($interest_rate/$installment_interval), $installment_amount, $loan_amount, 0);
+      $number_of_periods = periods($interest_rate_period, $installment_amount_neg, $loan_amount, 0);
 
      
 
