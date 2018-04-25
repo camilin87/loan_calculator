@@ -80,7 +80,6 @@
       }
 
       $number_of_periods = periods($interest_rate_period, $installment_amount_neg, $loan_amount, 0);
-
       $number_of_periods_rounded = ceil($number_of_periods);
 
       $start_date_new_format = strtotime($start_date);
@@ -95,22 +94,33 @@
 
       if ($installment_interval == 365 ){
         $pay_off_date = strtotime("+".$number_of_periods_rounded ." day", $start_date_new_format); 
+
+        for ($payment_date = $start_date_new_format; $payment_date <= $pay_off_date; $payment_date = strtotime("+1 day", $payment_date)){
+          echo "Payment date (daily): " . date('Y/m/d', $payment_date) . '<br>';
+        } 
+
       }
 
       if ($installment_interval == 52 ){
-        $pay_off_date = strtotime("+".$number_of_periods_rounded ." week", $start_date_new_format);   
-      }
+        $pay_off_date = strtotime("+".$number_of_periods_rounded ." week", $start_date_new_format);
 
+        for ($payment_date = $start_date_new_format; $payment_date <= $pay_off_date; $payment_date = strtotime("+1 week", $payment_date)){
+          echo "Payment date (weekly): " . date('Y/m/d', $payment_date) . '<br>';
+        } 
+      }
      
       if ($installment_interval == 12 ){
-        $pay_off_date = strtotime("+".$number_of_periods_rounded ." month", $start_date_new_format);   
-      }
+        $pay_off_date = strtotime("+".$number_of_periods_rounded ." month", $start_date_new_format);  
 
-      // echo $pay_off_date;
-      // echo "<br>";
+        for ($payment_date = $start_date_new_format; $payment_date <= $pay_off_date; $payment_date = strtotime("+1 month", $payment_date)){
+          echo "Payment date (monthly): " . date('Y/m/d', $payment_date) . '<br>';
+        }  
+      }
 
       echo "Pay off date formatted: " . date('Y-m-d',$pay_off_date);
       echo "<br>";
+
+
 
     ?>
 
