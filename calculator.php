@@ -49,6 +49,19 @@
         return $data;
       }
 
+
+    public static function periods(float $interest_rate, float $installment_amount, float $present_value, float $future_value, bool $beginning = false): float
+    {
+        $when = $beginning ? 1 : 0;
+        if ($rate == 0) {
+            return - ($present_value + $future_value) / $installment_amount;
+        }
+        $initial  = $installment_amount * (1.0 + $rate * $when);
+        return log(($initial - $future_value*$interest_rate) / ($initial + $present_value*$interest_rate)) / log(1.0 + $interest_rate);
+    }
+
+
+
     ?>
 
     <h1>Loan repayment calculator in PHP</h1>
@@ -96,21 +109,32 @@
 
     </form>
 
+
+
     <div class="result">
+
+      <!-- show calculations -->
 
     </div>
 
     <?php
-      
-      echo $start_date;
-      echo $loan_amount;
-      echo $installment_amount;
-      echo $interest_rate;
-      echo $installment_interval;
+      echo "<h2>You selected :</h2>";
+      echo "<br>";
 
+      echo "Start date: " . $start_date;
+      echo "<br>";
 
+      echo "Loan amount: " . $loan_amount;
+      echo "<br>";
 
-      echo "alex";
+      echo "Installment amount: " . $installment_amount;
+      echo "<br>";
+
+      echo "Interest rate: " . $interest_rate;
+      echo "<br>";
+
+      echo "Installment interval: " . $installment_interval;
+      echo "<br>";
     ?>  
   </body>
 </html>
