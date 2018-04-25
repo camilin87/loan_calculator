@@ -69,7 +69,7 @@
       // *
       // * @return float
       function periods(float $rate, float $payment, float $present_value, float $future_value, bool $beginning = false): float {
-        //echo "DEBUG ".$rate.", ".$payment.", ".$present_value.", ".$future_value;   
+        //echo "DEBUG ".$rate.", ".$payment.", ".$present_value.", ".$future_value . '<br>';   
 
         $when = $beginning ? 1 : 0;
         if ($rate == 0) {
@@ -81,8 +81,36 @@
 
       $number_of_periods = periods($interest_rate_period, $installment_amount_neg, $loan_amount, 0);
 
-     
+      $number_of_periods_rounded = ceil($number_of_periods);
 
+      $start_date_new_format = strtotime($start_date);
+
+      echo "DEBUG: start date new format: " . date('Y/m/d', $start_date_new_format) . '<br>';
+      echo "DEBUG: installment_interval " . $installment_interval . '<br>';
+      // echo "DEBUG: start plus 7 days " . date('Y/m/d', strtotime("+7 day", $start_date_new_format)) . '<br>';
+      // echo "DEBUG: start plus 3 month " . date('Y/m/d', strtotime("+3 month", $start_date_new_format)) . '<br>';
+      // echo "DEBUG: start plus 5 weeks " . date('Y/m/d', strtotime("+5 week", $start_date_new_format)) . '<br>';
+      echo "DEBUG: number of periods rounded: " . $number_of_periods_rounded . '<br>';
+    
+
+      if ($installment_interval == 365 ){
+        $pay_off_date = strtotime("+".$number_of_periods_rounded ." day", $start_date_new_format); 
+      }
+
+      if ($installment_interval == 52 ){
+        $pay_off_date = strtotime("+".$number_of_periods_rounded ." week", $start_date_new_format);   
+      }
+
+     
+      if ($installment_interval == 12 ){
+        $pay_off_date = strtotime("+".$number_of_periods_rounded ." month", $start_date_new_format);   
+      }
+
+      // echo $pay_off_date;
+      // echo "<br>";
+
+      echo "Pay off date formatted: " . date('Y-m-d',$pay_off_date);
+      echo "<br>";
 
     ?>
 
