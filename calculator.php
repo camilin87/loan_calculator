@@ -91,12 +91,15 @@
       // echo "DEBUG: start plus 5 weeks " . date('Y/m/d', strtotime("+5 week", $start_date_new_format)) . '<br>';
       echo "DEBUG: number of periods rounded: " . $number_of_periods_rounded . '<br>';
     
+      $payments = array();
 
       if ($installment_interval == 365 ){
         $pay_off_date = strtotime("+".$number_of_periods_rounded ." day", $start_date_new_format); 
 
         for ($payment_date = $start_date_new_format; $payment_date <= $pay_off_date; $payment_date = strtotime("+1 day", $payment_date)){
-          echo "Payment date (daily): " . date('Y/m/d', $payment_date) . '<br>';
+          echo "DEBUG: Payment date (daily): " . date('Y/m/d', $payment_date) . '<br>';
+
+          array_push($payments, $payment_date);
         } 
 
       }
@@ -105,7 +108,9 @@
         $pay_off_date = strtotime("+".$number_of_periods_rounded ." week", $start_date_new_format);
 
         for ($payment_date = $start_date_new_format; $payment_date <= $pay_off_date; $payment_date = strtotime("+1 week", $payment_date)){
-          echo "Payment date (weekly): " . date('Y/m/d', $payment_date) . '<br>';
+          echo "DEBUG: Payment date (weekly): " . date('Y/m/d', $payment_date) . '<br>';
+
+          array_push($payments, $payment_date);
         } 
       }
      
@@ -113,15 +118,13 @@
         $pay_off_date = strtotime("+".$number_of_periods_rounded ." month", $start_date_new_format);  
 
         for ($payment_date = $start_date_new_format; $payment_date <= $pay_off_date; $payment_date = strtotime("+1 month", $payment_date)){
-          echo "Payment date (monthly): " . date('Y/m/d', $payment_date) . '<br>';
+          echo "DEBUG: Payment date (monthly): " . date('Y/m/d', $payment_date) . '<br>';
+
+          array_push($payments, $payment_date);
         }  
       }
 
-      echo "Pay off date formatted: " . date('Y-m-d',$pay_off_date);
-      echo "<br>";
-
-
-
+      echo "DEBUG Pay off date formatted: " . date('Y-m-d',$pay_off_date) . "<br>";
     ?>
 
     <h1>Loan repayment calculator in PHP</h1>
@@ -170,12 +173,19 @@
     </form>
 
 
-
     <div class="result">
 
       <!-- show calculations -->
+      <h2>Payoff Date: <?php echo  date('Y/m/d', $pay_off_date); ?></h2>
 
+      <h2>Payment Dates: </h2>
+      <ul>
+      <?php foreach ($payments as $payment) { ?>
+        <li><?php echo date('Y/m/d', $payment) . '<br>';?></li>
+      <?php } ?>
+      </ul>
     </div>
+
 
     <?php
       echo "<h2>You selected :</h2>";
