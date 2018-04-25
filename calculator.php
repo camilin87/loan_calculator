@@ -26,6 +26,7 @@
 
   <body>
     <?php
+
       $start_date = 0;
       $loan_amount = 0;
       $installment_amount = 0;
@@ -33,13 +34,12 @@
       $installment_interval = 0;
       $estimate_payoff = 0;
 
-
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $start_date = test_input($_POST["start_date"]);
-        $loan_amount = test_input($_POST["loan_amount"]);
-        $installment_amount = test_input($_POST["installment_amount"]);
-        $interest_rate = test_input($_POST["interest_rate"]);
-        $installment_interval = test_input($_POST["installment_interval"]);
+        $loan_amount = floatval(test_input($_POST["loan_amount"]));
+        $installment_amount = floatval(test_input($_POST["installment_amount"]));
+        $interest_rate = floatval(test_input($_POST["interest_rate"]));
+        $installment_interval = floatval(test_input($_POST["installment_interval"]));
       }
 
       function test_input($data) {
@@ -49,17 +49,36 @@
         return $data;
       }
 
+      $interest_rate = $interest_rate/100;
+      $installment_amount = -($installment_amount);
 
-    public static function periods(float $interest_rate, float $installment_amount, float $present_value, float $future_value, bool $beginning = false): float
-    {
+
+      // code is from: https://github.com/markrogoyski/math-php/blob/master/src/Finance.php
+     // * Examples:
+     // * The number of periods of a $475000 mortgage with interest rate 3.5% and monthly
+     // * payment of $2132.96  paid in full:
+     // *   nper(0.035/12, -2132.96, 475000, 0)
+
+     // * @param  float $rate
+     // * @param  float $payment
+     // * @param  float $present_value
+     // * @param  float $future_value
+     // * @param  bool  $beginning adjust the payment to the beginning or end of the period
+     // *
+     // * @return float
+
+      function periods(float $rate, float $payment, float $present_value, float $future_value, bool $beginning = false): float {
         $when = $beginning ? 1 : 0;
         if ($rate == 0) {
-            return - ($present_value + $future_value) / $installment_amount;
+            return - ($present_value + $future_value) / $payment;
         }
-        $initial  = $installment_amount * (1.0 + $rate * $when);
-        return log(($initial - $future_value*$interest_rate) / ($initial + $present_value*$interest_rate)) / log(1.0 + $interest_rate);
-    }
+        $initial  = $payment * (1.0 + $rate * $when);
+        return log(($initial - $future_value*$rate) / ($initial + $present_value*$rate)) / log(1.0 + $rate);
+      }
 
+      periods(($interest_rate/$installment_interval), $installment_amount, $loan_amount, 0);
+
+     
 
 
     ?>
@@ -135,6 +154,8 @@
 
       echo "Installment interval: " . $installment_interval;
       echo "<br>";
+
+      echo "Output of periods function: " . periods(($interest_rate/$installment_interval), $installment_amount, $loan_amount, 0);
     ?>  
   </body>
 </html>

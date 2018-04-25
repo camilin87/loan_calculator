@@ -1,20 +1,18 @@
-# Description
-Payment loan calculator
-
-# To run the project
-
-```bash
-php -S localhost:8080
-```
-
-go to : http://localhost:8080/calculator.php
 
 
+Form:
 
-# The NPER() is copied from https://github.com/markrogoyski/math-php/blob/master/src/Finance.php
+https://www.tutorialspoint.com/php/php_form_introduction.htm
 
 
-  /**.  
+Formula:
+
+http://forums.excelcentral.com/index.php?/topic/554-create-a-loan-payment-with-payoff-date/
+
+http://phpfinancials.sourceforge.net/manual/classsum.php#NPER
+
+
+  /**.  https://github.com/markrogoyski/math-php/blob/master/src/Finance.php
 
      * Number of payment periods of an annuity.
      * Solves for the number of periods in the annuity formula.
