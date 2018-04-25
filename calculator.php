@@ -50,20 +50,22 @@
 		  <input type="text" class="form-control" id="interest_rate" placeholder="%">
 	</div>
 
-
-	<div class="dropdown">
-	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	    Dropdown
-	  </button>
-	  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-	    <button class="dropdown-item" type="button">Action</button>
-	    <button class="dropdown-item" type="button">Another action</button>
-	    <button class="dropdown-item" type="button">Something else here</button>
-	  </div>
+	<div class="form-group">
+		<label for="installment_interval">Installment Interval:</label>
+		<div class="btn-group" data-toggle="buttons">
+		  <label class="btn">
+		    <input type="radio" name="options" id="daily" autocomplete="off"> Daily
+		  </label>
+		  <label class="btn">
+		    <input type="radio" name="options" id="weekly" autocomplete="off"> Weekly
+		  </label>
+		  <label class="btn">
+		    <input type="radio" name="options" id="monthly" autocomplete="off"> Monthly
+		  </label>
+		</div>
 	</div>
 
-	<br>
-
+	<br> 
 	
 	<button type="button" class="btn btn-primary">Calculate</button>
 
@@ -72,15 +74,17 @@
 	</div>
 
 	<?php
-	$start_date = 0;
-	$loan_amount = 0;
-	$installment_amount = 0;
-	$interest_rate = 0;
-	$installment_interval = 0;
+		$start_date = 0;
+		$loan_amount = 0;
+		$installment_amount = 0;
+		$interest_rate = 0;
+		$installment_interval = 0;
 
-	$estimate_payoff = 0;
+		$estimate_payoff = 0;
 
-	?>
-  
+    echo $start_date;
+
+    echo "alex";
+	?>  
   </body>
 </html>
