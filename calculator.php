@@ -37,9 +37,29 @@
         color: white;
       }
 
+      h3 {
+        line-height: 1.5;
+        color: #212529;
+        text-align: left;
+        color: gray;
+      }
+
       #results {
         padding-left: 50px;
       }
+
+      .payoff {
+        color: black;
+      }
+
+      .list_dates {
+        list-style-type: none;
+        line-height: 1.5;
+        color: #212529;
+        text-align: left;
+        color: black;
+      }
+
     </style>
   </head>
 
@@ -199,10 +219,10 @@
    
     <?php if (isset($pay_off_date)){ ?>
       <div class="form-group col-md-6" id="results">
-        <h2>Payoff Date: <?php echo  date('Y/m/d', $pay_off_date); ?></h2>
+        <h3>Payoff Date: <span class="payoff"><?php echo  date('Y/m/d', $pay_off_date); ?></span></h3> 
 
-        <h2>Payment Dates: </h2>
-          <ul>
+        <h3>Payment Dates: </h3>
+          <ul class="list_dates">
           <?php foreach ($payments as $payment) { ?>
             <li><?php echo date('Y/m/d', $payment) . '<br>';?></li>
           <?php } ?>
