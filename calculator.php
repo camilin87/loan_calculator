@@ -58,6 +58,10 @@
         color: #212529;
         text-align: left;
         color: black;
+        columns: 3;
+        -webkit-columns: 3;
+        -moz-columns: 3;
+        
       }
 
     </style>
