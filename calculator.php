@@ -61,7 +61,7 @@
         columns: 3;
         -webkit-columns: 3;
         -moz-columns: 3;
-        
+
       }
 
     </style>
@@ -182,7 +182,7 @@
         <div class="form-group col-md-3">
           <div class="form-group">
             <label for="start_date">Start Date:</label>
-            <input type="date" class="form-control" id="start_date" name="start_date"  value="<?php echo isset($_POST["start_date"]) ? $_POST["start_date"] : ''; ?>">
+            <input type="date" data-date="" data-date-format="MM/DD/YYYY" class="form-control" id="start_date" name="start_date" value="<?php echo isset($_POST["start_date"]) ? $_POST["start_date"] : ''; ?>">
           </div>
 
           <div class="form-group">
@@ -223,12 +223,12 @@
    
     <?php if (isset($pay_off_date)){ ?>
       <div class="form-group col-md-6" id="results">
-        <h3>Payoff Date: <span class="payoff"><?php echo  date('Y/m/d', $pay_off_date); ?></span></h3> 
+        <h3>Payoff Date: <span class="payoff"><?php echo  date('m/d/Y', $pay_off_date); ?></span></h3> 
 
         <h3>Payment Dates: </h3>
           <ul class="list_dates">
           <?php foreach ($payments as $payment) { ?>
-            <li><?php echo date('Y/m/d', $payment) . '<br>';?></li>
+            <li><?php echo date('m/d/Y', $payment) . '<br>';?></li>
           <?php } ?>
           </ul>
       </div>
